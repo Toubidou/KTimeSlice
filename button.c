@@ -34,6 +34,16 @@ void button_set_long_pressed_cb(BUTTON *btn, void (*long_event)(void))
     btn->long_event = long_event;
     asy_evt_register(BUTTON_0_SIG_NUM + 1 + btn->id * 2, btn->long_event);
 }
+int button_clear_long_pressed_cb(BUTTON *btn)
+{
+    if (btn == NULL)
+    {
+        return -1;
+    }
+    btn->long_event = NULL;
+    asy_evt_unregister(BUTTON_0_SIG_NUM + 1 + btn->id * 2);
+    return 0;
+}
 
 int button_cob_Reg(uint8_t btn_id0, uint8_t btn_id1, void (*cob_event)(void))
 {
@@ -161,6 +171,5 @@ void button_scan(void *p)
                 button_cob_mask = 0;
             }
         }
-    }
-        // rt_thread_delay(10);
+    } 
 }

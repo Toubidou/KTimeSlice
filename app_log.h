@@ -7,7 +7,7 @@
 #include "bsp_usart.h"
 
 // #define UART_LOG_HANDLER (&huart6)
-#define UART_LOG         USART0
+#define UART_LOG        USART_LOG_PERIPH
 
 
 void app_log( char *format, ... );

@@ -47,5 +47,7 @@ void button_scan(void *p);
 void button_set_long_pressed_cb(BUTTON *btn, void (*long_event)(void));
 int button_cob_Reg(uint8_t btn_id0, uint8_t btn_id1, void (*cob_event)(void));
 int button_get_id(BUTTON *btn);
-
+int button_clear_long_pressed_cb(BUTTON *btn);
+void button_disable(void);
+void button_enable(void);
 #endif

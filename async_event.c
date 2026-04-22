@@ -12,6 +12,12 @@ uint8_t asy_evt_register(uint32_t sig, void (*evt_cb)(void))
     AsyEvtHandle.map[sig].sig = sig;
     return 0;
 }
+void asy_evt_unregister(uint32_t sig)
+{
+    AsyEvtHandle.map[sig].evt_cb = NULL;
+    AsyEvtHandle.map[sig].sig = NULL;
+}
+
 uint8_t asy_evt_emit(uint32_t sig)
 {
     if((sig < 0) || (sig > SIG_NUM_MAX))
@@ -60,4 +66,9 @@ void task_asy_evt_process(void *p)
 unsigned int asy_get_no_evt_time(void)
 {
     return AsyEvtHandle.no_evt_time;
+}
+
+void asy_clear_evt_time(void)
+{
+    AsyEvtHandle.no_evt_time = 0;
 }

@@ -35,5 +35,6 @@ uint8_t asy_evt_register(uint32_t sig, void (*evt_cb)(void));
 uint8_t asy_evt_emit(uint32_t sig);
 void task_asy_evt_process(void *p);
 unsigned int asy_get_no_evt_time(void);
-
+void asy_clear_evt_time(void);
+void asy_evt_unregister(uint32_t sig);
 #endif
