@@ -5,7 +5,7 @@ static uint8_t button_num = 0;
 static ListNode btn_list_head = {NULL};
 static ButtonCobInfo bci = {0};
 
-BUTTON *button_create(int (*detect_func)(void), void (*short_evt)(void))
+BUTTON *button_create(bool (*detect_func)(void), void (*short_evt)(void))
 {
     if(button_num > BUTTON_NUM_MAX)
     {
@@ -70,6 +70,9 @@ int button_cob_Reg(uint8_t btn_id0, uint8_t btn_id1, void (*cob_event)(void))
     }
     return 0;
 }
+
+/// @brief 设置组合按键触发标志位
+/// @param button_cob_mask 
 void button_cob_set_trig_flag(uint16_t button_cob_mask)
 {
     ListNode *node = NULL;

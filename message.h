@@ -28,7 +28,7 @@ MessageHandle *message_create(const char *name,
 							uint16_t msg_size,
 							uint32_t msgs_num_max);
 int message_send(MessageHandle *mq, const void *buffer, uint16_t size);
-int message_receive(MessageHandle *mq, const void *buffer, uint16_t size);
+int message_receive(MessageHandle *mq, void *buffer, uint16_t size);
 
 #endif
 

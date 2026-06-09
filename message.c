@@ -15,6 +15,7 @@ MessageHandle *message_create(const char *name,
 	mq->msg_pool = malloc((msg_size + sizeof(MessageNode)) * msgs_num_max);
 	if (mq->msg_pool == NULL)
 	{
+		free(mq);
 		return NULL;
 	}
 	mq->head = NULL;
@@ -73,7 +74,7 @@ int message_send(MessageHandle *mq, const void *buffer, uint16_t size)
 	return 0;
 }
 
-int message_receive(MessageHandle *mq, const void *buffer, uint16_t size)
+int message_receive(MessageHandle *mq, void *buffer, uint16_t size)
 {
 	if ((mq == NULL) || (buffer == NULL))
 	{
