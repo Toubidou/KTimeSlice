@@ -1,6 +1,6 @@
 #include "async_event.h"
 
-static ASY_EVT_HANDLE AsyEvtHandle = {.no_evt_time = 0};
+static ASY_EVT_HANDLE AsyEvtHandle = {.no_evt_time = 0, .map = {0}};
 
 uint8_t asy_evt_register(uint32_t sig, void (*evt_cb)(void))
 {
@@ -48,7 +48,11 @@ uint8_t asy_evt_process(void)
     list_for_each(node, &(AsyEvtHandle.list_head))
     {
         temp_evt_p = list_entry(node, ASY_EVT, next);
-        AsyEvtHandle.map[temp_evt_p->sig].evt_cb();
+        if (AsyEvtHandle.map[temp_evt_p->sig].evt_cb != NULL)
+        {
+            AsyEvtHandle.map[temp_evt_p->sig].evt_cb();
+        }
+        
         list_remove(&(AsyEvtHandle.list_head), &(temp_evt_p->next));
         free(temp_evt_p);
     }

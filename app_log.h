@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-// #include "bsp_usart.h"
+#include "bsp_usart.h"
 
-#define DEBUG           0
+#define DEBUG           1
 // #define UART_LOG_HANDLER (&huart6)
 #define UART_LOG        USART_LOG_PERIPH
 

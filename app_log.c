@@ -1,6 +1,6 @@
 #include "app_log.h"
 
-static char _log_buf[500];
+static char _log_buf[256];
 void bsp_debug_log_send_buf( const char *pBuf, uint32_t len, uint32_t time_out )
 {
 #if DEBUG == 1
