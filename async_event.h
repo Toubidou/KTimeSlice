@@ -4,8 +4,10 @@
 #include "main.h"
 #include <stdlib.h>
 #include "list.h"
+#include <stdbool.h>
 
-#define     SIG_NUM_MAX     256
+#define     SIG_NUM_MAX         256
+#define     ASY_EVT_QUEUE_MAX   32    /* 最大同时挂起事件数 */
 
 #define list_for_each(pos, head) \
     for (pos = (head)->next; pos != NULL; pos = pos->next)
