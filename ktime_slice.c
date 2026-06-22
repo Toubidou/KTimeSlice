@@ -57,7 +57,9 @@ static void task_pool_free(KTaskNode *node)
 
 #endif /* KTASK_USE_STATIC_ALLOC */
 
-void ktask_inctick(void)           //���¸����������ʱ�䣬�����������1ms�ж���
+/// @brief Update the task state.
+/// @param  
+void ktask_inctick(void)           
 {
 	uint8_t i;
 	KTaskNode *temp = tq.head;
@@ -70,11 +72,11 @@ void ktask_inctick(void)           //���¸����������ʱ
 	{
 		if(temp->task_state == WAIT)
 		{
-			temp->time++;             //��ʱ
+			temp->time++;             
 			temp->duration++;
 			if(temp->time >= temp->period_ms)
 			{
-				temp->task_state = READY;       //����̬תΪ����̬
+				temp->task_state = READY;       
 			}
 		}
 	
@@ -86,8 +88,8 @@ void ktask_inctick(void)           //���¸����������ʱ
 }
 /// @brief 
 /// @param task 
-/// @param wait_time ����ʱ��
-/// @param repeat_count 1: ����ִ�У� 0���ظ�ִ��
+/// @param wait_time 
+/// @param repeat_count 1: run once 0: run forever
 /// @return 
 KTaskNode *ktask_create(void (*task)(void *parm), void *parm, uint32_t wait_time, uint8_t repeat_count)
 {
@@ -119,21 +121,21 @@ KTaskNode *ktask_create(void (*task)(void *parm), void *parm, uint32_t wait_time
 	new_ktask->param = parm;
 	new_ktask->duration = 0;
 
-	uint32_t primask = critical_enter();  // �� �޸Ĺ�������ǰ���ж�
+	uint32_t primask = critical_enter();  	//irq disable
 
-	tq.task_num++;               //������+1
+	tq.task_num++;               
 	if(tq.head == NULL)
 	{
-		tq.head = new_ktask;         //�󶨵�һ��������
+		tq.head = new_ktask;         
 		tq.rear = new_ktask;
 	}
 	else
 	{
-		tq.rear->next = new_ktask;		//������ڵ�������		        
+		tq.rear->next = new_ktask;				        
 	}
-	tq.rear = new_ktask;           //β���
+	tq.rear = new_ktask;           
 
-	critical_exit(primask);              // �� �ָ�
+	critical_exit(primask);              
 
 	return new_ktask;
 }
@@ -147,21 +149,21 @@ void ktask_run(void)
 	KTaskNode *temp = NULL;
 	while(temp_task_node != NULL)
 	{
-		if(temp_task_node->task_state == READY)   //����߳��ӳٽ�������ʼ����
+		if(temp_task_node->task_state == READY)   
 		{
 			temp_task_node->task_state = RUN;
 
-			critical_exit(primask);  // �� ִ���û��ص�ǰһ��Ҫ**���ж�**��
-									//��������ϵͳ��ʵʱ�ԣ�systick�������жϵȣ����ᱻ������
+			critical_exit(primask);  
+									
 			temp_task_node->task(temp_task_node->param);
 
-			primask = critical_enter();  // �� �ص����غ����¹��ж�
+			primask = critical_enter();  
 
-			if(temp_task_node->repeat_count == 1)  //����ִ��
+			if(temp_task_node->repeat_count == 1)  
 			{
 				if(temp_task_node == tq.head)
 				{
-					tq.head = temp_task_node->next;         //ָ����һ�����
+					tq.head = temp_task_node->next;         
 				}
 				else if(temp_task_node == tq.rear)
 				{
@@ -181,9 +183,9 @@ void ktask_run(void)
 				tq.task_num--;
 				continue;
 			}
-			else{                       //�ظ�ִ��
+			else{                       
 				temp_task_node->task_state = WAIT;		
-				temp_task_node->time = 0;            //���¼�ʱ							
+				temp_task_node->time = 0;            							
 			}			
 		}	
 		pre = temp_task_node;
