@@ -2,5 +2,3 @@
 
 ## CLONE
     https://github.com/Toubidou/KTimeSlice.git
-## VERSION
-    V0.03-0409
