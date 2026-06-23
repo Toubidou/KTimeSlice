@@ -37,6 +37,10 @@ static void event_pool_free(ASY_EVT *evt)
     event_free_head = &evt->next;
 }
 
+/// @brief 
+/// @param sig  encoder sig: 0, 1;  button: 5~40 
+/// @param evt_cb 
+/// @return 
 uint8_t asy_evt_register(uint32_t sig, void (*evt_cb)(void))
 {
     if((sig > SIG_NUM_MAX))
@@ -102,7 +106,7 @@ uint8_t asy_evt_process(void)
 }
 
 //5ms调度
-void task_asy_evt_process(void *p)
+void asy_evt_task_process(void *p)
 {
     asy_evt_process();
 }
