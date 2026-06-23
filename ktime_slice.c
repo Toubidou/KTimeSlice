@@ -256,3 +256,12 @@ void ktask_clear_duration(KTaskNode *ktn)
 	ktn->duration = 0;
 }
 
+void ktask_init(void)
+{
+#if	(USE_BUTTON)
+	ktask_create(button_scan, NULL, 10, 0);
+#endif
+#if (USE_ENCODER || USE_BUTTON)
+	ktask_create(asy_evt_task_process, NULL, 5, 0);
+#endif
+}

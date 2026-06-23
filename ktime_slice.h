@@ -4,6 +4,10 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include "async_event.h"
+
+#define		USE_ENCODER			1
+#define		USE_BUTTON			0
 
 #define		KTASK_NUM_MAX		128
 
@@ -48,5 +52,5 @@ void ktask_run(void);
 uint32_t ktask_get_duration(KTaskNode *ktn);
 int ktask_del(KTaskNode *kn);
 void ktask_clear_duration(KTaskNode *ktn);
-
+void ktask_init(void);
 #endif 
