@@ -105,7 +105,7 @@ int ringbuffer_get(RingBuff *rb, uint8_t *dst_data, uint32_t num)
 }
 uint8_t ringbuffer_getchar(RingBuff *rb)
 {
-    uint8_t c = NULL;
+    uint8_t c;
     if (rb == NULL)
     {
         return c;

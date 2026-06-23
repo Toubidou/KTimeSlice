@@ -5,9 +5,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "async_event.h"
+#include "button.h"
 
 #define		USE_ENCODER			1
-#define		USE_BUTTON			0
+#define		USE_BUTTON			1
 
 #define		KTASK_NUM_MAX		128
 
